@@ -2,6 +2,7 @@ library hl_image_picker_android;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:hl_image_picker_android/hl_mime_types.dart';
 import 'package:hl_image_picker_platform_interface/hl_image_picker_platform_interface.dart';
 
 export 'package:hl_image_picker_platform_interface/hl_image_picker_platform_interface.dart'
@@ -44,6 +45,7 @@ class HLImagePickerAndroid extends HLImagePickerPlatform {
   /// Returns a list of [HLPickerItem]
   @override
   Future<List<HLPickerItem>> openPicker({
+    List<HLMimeType>? allowedTypes,
     List<String>? selectedIds,
     HLPickerOptions? pickerOptions,
     bool? cropping,
@@ -79,6 +81,7 @@ class HLImagePickerAndroid extends HLImagePickerPlatform {
     ];
 
     final data = await methodChannel.invokeMethod('openPicker', {
+      'allowedTypes':allowedTypes?.map((e) => e.rawValue).toList(),
       'mediaType': pickerOptions?.mediaType?.name,
       'maxSelectedAssets': pickerOptions?.maxSelectedAssets,
       'selectedIds': selectedIds,

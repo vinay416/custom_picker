@@ -143,6 +143,7 @@ class HLImagePickerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, Plu
             "image" -> SelectMimeType.ofImage()
             else -> SelectMimeType.ofAll()
         }
+        val allowedTypes = flutterCall?.argument<List<String>>("allowedTypes") ?: listOf<String>()
         val selectedAssets: MutableList<LocalMedia> = mutableListOf()
         val selectedIds = flutterCall?.argument<ArrayList<String>>("selectedIds") ?: ArrayList()
         for (i in 0 until selectedIds.size) {
@@ -161,7 +162,6 @@ class HLImagePickerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, Plu
         val maxDuration = flutterCall?.argument<Int>("maxDuration") ?: 0
         val minDuration = flutterCall?.argument<Int>("minDuration") ?: 0
         val isGif = flutterCall?.argument<Boolean>("isGif") ?: false
-
         val maxWidth = flutterCall?.argument<Int>("maxWidth")
         val maxHeight = flutterCall?.argument<Int>("maxHeight")
         val pickerCompressQuality = flutterCall?.argument<Double>("compressQuality")
@@ -170,6 +170,7 @@ class HLImagePickerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, Plu
         var shouldReturnOnDestroy = true
         PictureSelector.create(currentActivity)
                 .openGallery(mediaType)
+                .setQueryOnlyMimeType(*allowedTypes.toTypedArray())
                 .setMaxSelectNum(maxSelectedAssets)
                 .setMinSelectNum(minSelectedAssets)
                 .setSelectionMode(selectionMode)

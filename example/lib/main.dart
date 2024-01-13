@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hl_image_picker_android/hl_image_picker_android.dart';
+import 'package:hl_image_picker_android/hl_mime_types.dart';
 import 'package:hl_image_picker_android_example/widgets/aspect_ratio_select.dart';
 import 'package:hl_image_picker_android_example/widgets/custom_switch.dart';
 import 'package:hl_image_picker_android_example/widgets/increase_decrease.dart';
@@ -37,9 +38,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<HLPickerItem> _selectedImages = [];
 
+  final allowedTypes = [
+    HLMimeType.gif,
+    HLMimeType.jpeg,
+    HLMimeType.jpg,
+    HLMimeType.png,
+  ];
   bool _isCroppingEnabled = false;
   int _count = 4;
-  MediaType _type = MediaType.all;
+  MediaType _type = MediaType.image;
   bool _isExportThumbnail = true;
   bool _enablePreview = false;
   bool _usedCameraButton = true;
@@ -50,6 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
   _openPicker() async {
     try {
       final images = await _picker.openPicker(
+        allowedTypes: allowedTypes,
         cropping: _isCroppingEnabled,
         selectedIds: _includePrevSelected
             ? _selectedImages.map((e) => e.id).toList()
