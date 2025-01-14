@@ -6,7 +6,7 @@ import 'package:hl_image_picker_android_example/widgets/custom_switch.dart';
 import 'package:hl_image_picker_android_example/widgets/increase_decrease.dart';
 import 'package:hl_image_picker_android_example/widgets/media_preview.dart';
 import 'package:hl_image_picker_android_example/widgets/media_type_select.dart';
-import 'package:image_cropper/image_cropper.dart';
+// import 'package:image_cropper/image_cropper.dart';
 
 void main() {
   runApp(const MyApp());
